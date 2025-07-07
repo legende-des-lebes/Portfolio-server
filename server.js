@@ -66,7 +66,7 @@ const auth = new google.auth.GoogleAuth({
   scopes: ['https://www.googleapis.com/auth/spreadsheets'],
 });
 
-const SHEET_ID = 'your_sheet_id_here'; // 👈 Replace with your actual sheet ID
+const SHEET_ID = '1oQDqY2ZTatcQQjjSMz59Ez_FeRpwAl4wORVm2_BXk_U'; // 👈 Replace with your actual sheet ID
 
 async function appendToSheet({ name, email, ip, location }) {
   const client = await auth.getClient();
