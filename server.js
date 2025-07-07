@@ -39,7 +39,7 @@ app.post('/log', async (req, res) => {
   }
 
   const logEntry = `${new Date().toISOString()} | Name: ${name}, Email: ${email}, IP: ${ip}${locationInfo}\n`;
-  const logPath = path.join(__dirname, 'Index', 'logins.txt');
+  const logPath = path.join(__dirname, 'index', 'logins.txt');
 
   fs.appendFile(logPath, logEntry, (err) => {
     if (err) {
@@ -58,3 +58,31 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
+const { google } = require('googleapis');
+const credentials = require('./credentials.json');
+
+const auth = new google.auth.GoogleAuth({
+  credentials,
+  scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+});
+
+const SHEET_ID = 'your_sheet_id_here'; // 👈 Replace with your actual sheet ID
+
+async function appendToSheet({ name, email, ip, location }) {
+  const client = await auth.getClient();
+  const sheets = google.sheets({ version: 'v4', auth: client });
+
+  const timestamp = new Date().toISOString();
+  const row = [timestamp, name, email, ip, location];
+
+  await sheets.spreadsheets.values.append({
+    spreadsheetId: SHEET_ID,
+    range: 'Log!A1:E1', // Make sure your sheet is named 'Log'
+    valueInputOption: 'RAW',
+    requestBody: {
+      values: [row],
+    },
+  });
+}
+
+module.exports = { appendToSheet };
