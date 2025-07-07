@@ -51,6 +51,9 @@ app.post('/log', async (req, res) => {
     res.send('Logged successfully');
   });
 });
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index', 'index.html'));
+});
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
