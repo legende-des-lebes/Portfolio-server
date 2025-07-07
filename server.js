@@ -77,7 +77,7 @@ async function appendToSheet({ name, email, ip, location }) {
 
   await sheets.spreadsheets.values.append({
     spreadsheetId: SHEET_ID,
-    range: 'Log!A1:E1', // Make sure your sheet is named 'Log'
+    range: 'portfolio-server-log!A1:E1', // Make sure your sheet is named 'Log'
     valueInputOption: 'RAW',
     requestBody: {
       values: [row],
