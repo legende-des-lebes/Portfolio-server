@@ -7,7 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;  // ✅ Handle Render dynamic port
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'index')));
+app.use(express.static(path.join(__dirname, 'Index')));
 
 app.post('/log', async (req, res) => {
   const { name, email } = req.body;
@@ -52,7 +52,7 @@ app.post('/log', async (req, res) => {
   });
 });
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index', 'index.html'));
+  res.sendFile(path.join(__dirname, 'Index', 'index.html'));
 });
 
 app.listen(PORT, () => {
